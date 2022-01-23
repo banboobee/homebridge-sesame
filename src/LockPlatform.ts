@@ -4,8 +4,6 @@ import { Client } from './Client';
 import { API, PlatformConfig, PlatformAccessory as Accessory, Logging as Log } from 'homebridge';
 import { HAP } from './HAP';
 import { Lock } from './interfaces/API';
-//import { Accessory, Log, Platform } from './interfaces/HAP';
-//import { Config } from './interfaces/Config';
 import { LockAccessory } from "./LockAccessory";
 import { Logger } from './Logger';
 import { Server } from './Server';

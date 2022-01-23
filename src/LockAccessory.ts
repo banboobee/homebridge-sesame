@@ -2,9 +2,7 @@
 import { API, Logger as Log, Access } from 'homebridge';
 import { HAP } from "./HAP";
 import { LockStatus, Lock } from "./interfaces/API";
-//import { Accessory, Service, Log } from "./interfaces/HAP";
 import { PlatformAccessory as Accessory} from 'homebridge';
-//import { Characteristic } from 'homebridge';
 import { Service, WithUUID } from 'homebridge';
 import { Logger } from "./Logger";
 import { Client } from "./Client";

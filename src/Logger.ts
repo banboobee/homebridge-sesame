@@ -1,5 +1,4 @@
 // -*- mode : js; js-indent-level : 2 -*-
-//import { Log } from './interfaces/HAP';
 import { Logging as Log} from 'homebridge';
 
 class SesameLogger {
