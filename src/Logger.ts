@@ -1,4 +1,6 @@
-import { Log } from './interfaces/HAP';
+// -*- mode : js; js-indent-level : 2 -*-
+//import { Log } from './interfaces/HAP';
+import { Logging as Log} from 'homebridge';
 
 class SesameLogger {
   public  log: Log;
@@ -7,6 +9,14 @@ class SesameLogger {
   setLogger(log: Log, debugMode: boolean): void {
     this.log = log;
     this.debugMode = debugMode;
+  }
+
+  enableDebug(): void {
+    this.debugMode = true;
+  }
+
+  disableDebug(): void {
+    this.debugMode = false;
   }
 
   debug(message: string, data?: any): void {

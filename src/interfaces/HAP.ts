@@ -1,74 +1,85 @@
-export interface Accessory {
-  new (name: string, uuid: string): Accessory;
+// -*- mode : js; js-indent-level : 2 -*-
 
-  UUID: string;
-  reachability: boolean;
-  services: Service[];
-  context: any;
+// export interface Accessory {
+//   new (name: string, uuid: string): Accessory;
 
-  on(...args: any[]): void;
-  getService(...args: any[]): Service;
-  addService(...args: any[]): Service;
-  removeService(...args: any[]): void;
-  getServiceByUUIDAndSubType(...args: any[]): Service;
-  updateReachability(reachable: boolean): void;
-}
+//   UUID: string;
+//   reachability: boolean;
+//   services: Service[];
+//   context: any;
 
-export interface Service {
-  new (displayName: string): Service;
+//   on(...args: any[]): void;
+//   getService(...args: any[]): Service;
+//   addService(...args: any[]): Service;
+//   removeService(...args: any[]): void;
+//   getServiceByUUIDAndSubType(...args: any[]): Service;
+//   updateReachability(reachable: boolean): void;
+// }
 
-  UUID: string;
-  AccessoryInformation: Service;
+// export interface Service {
+//   new (displayName: string): Service;
 
-  LockMechanism: Service;
-  BatteryService: Service;
+//   UUID: string;
+//   AccessoryInformation: Service;
 
-  addCharacteristic(characteristic: Characteristic): Characteristic;
-  setCharacteristic(...args: any[]): Service;
-  getCharacteristic(...args: any[]): Characteristic;
-}
+//   LockMechanism: Service;
+//   BatteryService: Service;
 
-export interface Characteristic {
-  Manufacturer: Characteristic;
-  Model: Characteristic;
-  SerialNumber: Characteristic;
+//   addCharacteristic(characteristic: Characteristic): Characteristic;
+//   setCharacteristic(...args: any[]): Service;
+//   getCharacteristic(...args: any[]): Characteristic;
+//   updateCharacteristic(...args: any[]): Characteristic;
+// }
 
-  LockCurrentState: LockCurrentState;
-  LockTargetState: Characteristic;
-  BatteryLevel: Characteristic;
-  ChargingState: ChargingState;
-  StatusLowBattery: StatusLowBattery;
+// export interface Characteristic {
+//   Manufacturer: Characteristic;
+//   Model: Characteristic;
+//   SerialNumber: Characteristic;
 
-  on(...args: any[]): Characteristic;
-  updateValue(...args: any[]): Characteristic;
-}
+//   LockCurrentState: LockCurrentState;
+//   LockTargetState: Characteristic;
+//   BatteryLevel: Characteristic;
+//   ChargingState: ChargingState;
+//   StatusLowBattery: StatusLowBattery;
 
-export interface LockCurrentState {
-  new(): Characteristic;
-  SECURED: number;
-  UNSECURED: number;
-}
+//   on(...args: any[]): Characteristic;
+//   updateValue(...args: any[]): Characteristic;
+// }
 
-export interface ChargingState {
-  NOT_CHARGING: number;
-}
+// export interface LockCurrentState {
+//   new(): Characteristic;
+//   SECURED: number;
+//   UNSECURED: number;
+// }
 
-export interface StatusLowBattery {
-  BATTERY_LEVEL_LOW: number;
-  BATTERY_LEVEL_NORMAL: number;
-}
+// export interface ChargingState {
+//   NOT_CHARGING: number;
+// }
 
-export interface Log {
-  (...args: any[]): void;
-  error(...args: any[]): void;
-}
+// export interface StatusLowBattery {
+//   BATTERY_LEVEL_LOW: number;
+//   BATTERY_LEVEL_NORMAL: number;
+// }
 
-export interface Platform {
-  on(...args: any[]): void
-  registerPlatformAccessories(pluginName: string, platformname: string, accessories: Array<Accessory>): void;
-  unregisterPlatformAccessories(pluginName: string, platformname: string, accessories: Array<Accessory>): void;
-}
+// export interface Log {
+//   (...args: any[]): void;
+//   error(...args: any[]): void;
+// }
 
-export interface UUID {
-  generate(string): string;
-}
+// export interface Platform {
+//   on(...args: any[]): void
+//   registerPlatformAccessories(pluginName: string, platformname: string, accessories: Array<Accessory>): void;
+//   unregisterPlatformAccessories(pluginName: string, platformname: string, accessories: Array<Accessory>): void;
+// }
+
+// export interface UUID {
+//   generate(string): string;
+// }
+
+// export interface User {
+//   storagePath(): string;
+// }
+
+// export interface Fakegato {
+//   addEntry(): string;
+// }

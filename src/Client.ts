@@ -1,3 +1,4 @@
+// -*- mode : js; js-indent-level : 2 -*-
 import * as request from 'request-promise';
 import * as store from 'store';
 import { Lock, LockStatus, TaskResult } from './interfaces/API';
@@ -33,11 +34,13 @@ export class Client {
   }
 
   async control(id: string, secure: boolean): Promise<TaskResult> {
+    //Logger.enableDebug();
     let options = this.buildRequestOptions(`sesame/${id}`);
     options.body = {command: (secure ? 'lock' : 'unlock')}
 
     let response = await request.post(options);
     let result = await this.waitForTask(response.task_id);
+    //Logger.disableDebug();
 
     return result;
   }
