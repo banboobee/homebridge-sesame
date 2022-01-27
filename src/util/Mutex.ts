@@ -1,6 +1,6 @@
 // -*- mode : js; js-indent-level : 2 -*-
 import { Deferred } from 'ts-deferred';
-import { Semaphore } from 'await-semaphore';
+import { Semaphore } from './await-semaphore/index';
 
 export class Mutex<T> {
   private deferred: Deferred<T>;
