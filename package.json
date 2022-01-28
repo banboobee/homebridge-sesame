@@ -19,6 +19,7 @@
 		"@types/request": "^2.48.2",
 		"@types/request-promise": "^4.1.44",
 	    	"@types/storejs": "^2.0.3",
+		"@types/node": "^0.0.3",
 	    	"@types/node-persist": "3.1.2"
 	},
 	"engines": {
