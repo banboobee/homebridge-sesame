@@ -15,7 +15,7 @@
 		"@types/request": "^2.48.2",
 		"@types/request-promise": "^4.1.44",
 	    	"@types/storejs": "^2.0.3",
-		"fakegato-history": "git+https://github.com/banboobee/fakegato-history.git",
+		"fakegato-history": "^0.6.2",
 	    	"node-persist": "^2.1.0 <3.0.0",
 		"@types/node": "^16.11.0",
 	    	"@types/node-persist": "3.1.2"
