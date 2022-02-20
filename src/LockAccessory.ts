@@ -51,7 +51,7 @@ export class LockAccessory {
     this.mutex = new Mutex<LockStatus>();
 
     this.state = {};
-    this.setupLockStatePersist(HAP.User.storagePath());
+    this.setupLockStatePersist(HAP.User.storagePath(), platform);
 
     this.accessory.getService(HAP.Service.AccessoryInformation)
       .setCharacteristic(HAP.Characteristic.Manufacturer, 'CANDY HOUSE')
@@ -61,7 +61,7 @@ export class LockAccessory {
     this.setupLockServiceCharacteristics();
     this.setupBatteryServiceCharacteristics();
 
-    this.setupHistoryService(platform);
+    //this.setupHistoryService(platform);
   }
 
   // getServices(): Service[] {
@@ -84,7 +84,7 @@ export class LockAccessory {
     return hapService;
   }
 
-  async setupLockStatePersist(user: string): Promise<void> {
+  async setupLockStatePersist(user: string, platform: LockPlatform): Promise<void> {
     const persist = nodePersist.create();
     const nickname = this.lock.nickname;
     await persist.init({
@@ -103,10 +103,12 @@ export class LockAccessory {
       state.currentLockState = undefined;
       state.targetLockState = undefined;
     }
+    //Logger.log(`${this.lock.nickname}: currentLockState(${this.state.currentLockState}) targetLockState(${this.state.targetLockState})`);
     state.lastActivation = state.lastActivation || undefined;
     state.openDuration = state.openDuration  || 0;
     state.closedDuration = state.closedDuration || 0;
     state.timesOpened = state.timesOpened || 0;
+    //Logger.log(`${this.lock.nickname}:`, JSON.stringify(state));
     this.state = new Proxy(state, {
       set: function(target:any, key:PropertyKey, value:any, receiver:any):boolean {
 	try {
@@ -123,7 +125,8 @@ export class LockAccessory {
     // }
 
     //console.log(`${this.lock.nickname}:`, JSON.stringify(this.state));
-  }
+    await this.setupHistoryService(platform);
+}
   
   setupLockServiceCharacteristics(): void {
     let lockService = this.getOrCreateHAPService(HAP.Service.LockMechanism);
@@ -495,7 +498,7 @@ export class LockAccessory {
       adminOnlyAccess: [Access.WRITE]
     });
 
-  setupHistoryService(platform: LockPlatform) {
+  async setupHistoryService(platform: LockPlatform) {
     if (this.eveHistoryType == 'motion') {
       this.historyService = new platform.FakeGatoHistoryService(this.eveHistoryType, this.accessory, {log: this.log, storage: 'fs'});
       let motionService = this.accessory.getService(HAP.Service.MotionSensor);
@@ -527,7 +530,7 @@ export class LockAccessory {
 	  //console.log(this.state.lastActivation, this.historyService.getInitialTime());
           callback(null,
 	   this.state.lastActivation ?
-	   this.state.lastActivation - this.historyService.getInitialTime() :
+	   Math.max(this.state.lastActivation - this.historyService.getInitialTime(), 0) :
 	   0);
 	}.bind(this));
       
@@ -563,7 +566,7 @@ export class LockAccessory {
       contactService.getCharacteristic('LastActivation')
 	.on('get', function(callback){
 	  let lastActivation = this.state.lastActivation ?
-	      this.state.lastActivation - this.historyService.getInitialTime() : 0;
+	      Math.max(this.state.lastActivation - this.historyService.getInitialTime(), 0) : 0;
 	  //Logger.log(`Get LastActivation ${this.lock.nickname}: ${lastActivation}`);
           callback(null, lastActivation);
 	}.bind(this));
