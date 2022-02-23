@@ -244,6 +244,18 @@ export class LockAccessory {
       this.accessory.getService(HAP.Service.ContactSensor)
 	.getCharacteristic('ClosedDuration')
 	.updateValue(this.state.closedDuration);
+
+      if (this.eveHistoryType == 'motion') {
+	this.historyService.addEntry(
+	  {time: currentTime,
+	   status: locked ? true : false});
+      } else if (this.eveHistoryType == 'door') {
+	this.historyService.addEntry(
+	  {time: currentTime,
+	   status: locked ?
+	   HAP.Characteristic.ContactSensorState.CONTACT_DETECTED :
+	   HAP.Characteristic.ContactSensorState.CONTACT_NOT_DETECTED});
+      }
     } else {
       if (locked == HAP.Characteristic.LockCurrentState.SECURED) {
 	this.state.closedDuration += (currentTime - this.state.lastTime);
@@ -255,17 +267,6 @@ export class LockAccessory {
       }
     }
     //Logger.log(`${this.lock.nickname}: locked(${locked}) open(${this.state.openDuration}) close(${this.state.closedDuration}) times(${this.state.timesOpened}) last(${this.state.lastTime}) Activation(${this.state.lastActivation})`);
-    if (this.eveHistoryType == 'motion') {
-      this.historyService.addEntry(
-	{time: currentTime,
-	 status: locked ? true : false});
-    } else if (this.eveHistoryType == 'door') {
-      this.historyService.addEntry(
-	{time: currentTime,
-	 status: locked ?
-	 HAP.Characteristic.ContactSensorState.CONTACT_DETECTED :
-	 HAP.Characteristic.ContactSensorState.CONTACT_NOT_DETECTED});
-    }
     this.state.lastTime = currentTime;
   }
 
