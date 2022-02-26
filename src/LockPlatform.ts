@@ -70,7 +70,7 @@ export class LockPlatform {
     let lockAccessory = new LockAccessory(this.log, lock, accessory, this);
     this.server.locks.set(lock.device_id, lockAccessory);
 
-    Logger.log(`Found ${lock.nickname}`);
+    //Logger.log(`Found ${lock.nickname}(${lockAccessory.state.currentLockState ? 'locked' : 'unlocked'})`);
 
     return accessory;
   }

@@ -33,6 +33,10 @@ export class Server {
     this.api.listen(this.port, () => Logger.log(`Listening for webhooks on port ${this.port}`));
   }
 
+  async sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   async handleRequest(request: express.Request): Promise<void> {
     let id = request.body.device_id;
     let locked = request.body.locked;
@@ -65,6 +69,14 @@ export class Server {
       }
     } catch(e) {
       Logger.error(`${lockAccessory.lock.nickname} failed to sync. API responded with: ${e}`);
+      //console.log(JSON.stringify(e));
+      let {error} = e.error;
+      let busy = parseInt(error.replace(/DEVICE_IS_BUSY ([0-9]+)/, '$1'));
+      if (busy > 0) {
+	//Logger.log(`${lockAccessory.lock.nickname} waits for ${busy} seconds ...`);
+	await this.sleep(busy * 1000);
+	//Logger.log(`${lockAccessory.lock.nickname} Done.`);
+      }
     }
 
   //if (lockAccessory.state.targetLockState != locked) {

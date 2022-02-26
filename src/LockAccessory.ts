@@ -126,7 +126,9 @@ export class LockAccessory {
 
     //console.log(`${this.lock.nickname}:`, JSON.stringify(this.state));
     await this.setupHistoryService(platform);
-}
+
+    Logger.log(`Found ${this.lock.nickname}(${this.state.currentLockState ? 'locked' : 'unlocked'})`);
+  }
   
   setupLockServiceCharacteristics(): void {
     let lockService = this.getOrCreateHAPService(HAP.Service.LockMechanism);
