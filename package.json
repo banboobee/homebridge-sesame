@@ -16,9 +16,10 @@
 		"@types/request-promise": "^4.1.44",
 	    	"@types/storejs": "^2.0.3",
 		"fakegato-history": "^0.6.2",
-	    	"node-persist": "^2.1.0 <3.0.0",
+	    	"node-persist": "^3.0.0",
 		"@types/node": "^16.11.0",
-	    	"@types/node-persist": "3.1.2"
+		"@types/node-persist": "3.1.2",
+		"@types/serve-static": "^1.13.10"
 	},
 	"engines": {
 		"node": ">=0.12.0",
