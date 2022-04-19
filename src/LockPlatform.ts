@@ -44,14 +44,13 @@ export class LockPlatform {
 
     try {
       locks = await client.listLocks();
+      locks.forEach(lock => {
+	lock.nickname = lock.nickname;
+	this.addAccessory(lock)
+      });
     } catch(e) {
       Logger.error('Unable to retrieve locks', e);
     }
-
-    locks.forEach(lock => {
-      lock.nickname = lock.nickname;
-      this.addAccessory(lock)
-    });
   }
 
   configureAccessory(accessory: Accessory): void {
