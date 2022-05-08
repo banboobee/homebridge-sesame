@@ -94,7 +94,7 @@ export class LockAccessory {
       //   console.log(message);
       // }
     });
-    let state:currentState = await persist.getItem(nickname) || {};
+    let state:currentState = await persist.getItemSync(nickname) || {};
     try {
       let status:LockStatus = await this.mutex.wait(() => this.client.getStatus(this.lock.device_id));
       state.currentLockState = status.locked ? true : false;
@@ -108,11 +108,11 @@ export class LockAccessory {
     state.openDuration = state.openDuration  || 0;
     state.closedDuration = state.closedDuration || 0;
     state.timesOpened = state.timesOpened || 0;
-    //Logger.log(`${this.lock.nickname}:`, JSON.stringify(state));
+    Logger.log(`${this.lock.nickname}:`, JSON.stringify(state));
     this.state = new Proxy(state, {
       set: function(target:any, key:PropertyKey, value:any, receiver:any):boolean {
 	try {
-	  persist.setItem(nickname, target)
+	  persist.setItemSync(nickname, target)
 	} catch(e) {
 	  Logger.error(`${this.lock.nickname} is unable to set lock state persist`, e);
 	}

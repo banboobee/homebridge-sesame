@@ -11,14 +11,13 @@
 		"request-promise": "^4.2.4",
 		"store": "^2.0.12",
 	    	"ts-deferred": "^1.0.4",
-		"@types/express": "^4.17.0",
+		"@types/express": "^4.17.13",
 		"@types/request": "^2.48.2",
 		"@types/request-promise": "^4.1.44",
 	    	"@types/storejs": "^2.0.3",
 		"fakegato-history": "^0.6.2",
-	    	"node-persist": "^3.0.0",
+	    	"node-persist": "^2.1.0",
 		"@types/node": "^16.11.0",
-		"@types/node-persist": "3.1.2",
 		"@types/serve-static": "^1.13.10"
 	},
 	"engines": {
